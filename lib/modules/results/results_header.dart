@@ -65,10 +65,11 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
                     padding: EdgeInsets.symmetric(
                         horizontal: 16 * percent, vertical: 10 * percent),
                     child: Card(
-                      color: Colors.white,
+                      color: Theme.of(context).accentColor,
+                      // color: Colors.white,
                       elevation: 20.0,
                       child: Padding(
-                        padding: EdgeInsets.only(left: 60),
+                        padding: EdgeInsets.only(left: 60, top: 5),
                         child: CountDownTimer(),
                       ),
                     ),

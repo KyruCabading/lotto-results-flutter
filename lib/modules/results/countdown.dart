@@ -27,13 +27,11 @@ class CountDownTimer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Time till next results'.toUpperCase(),
-                  style: Styles.countdownSubtitle,
-                ),
+                Text('Time till next results'.toUpperCase(),
+                    style: Styles.countdownSubtitle.apply(color: Colors.white)),
                 Text(
                   dateString,
-                  style: Styles.countdownTitle,
+                  style: Styles.countdownTitle.apply(color: Colors.yellow[700]),
                 ),
               ],
             ),

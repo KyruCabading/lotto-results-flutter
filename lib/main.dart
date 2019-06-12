@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       title: 'My Flutter App',
       theme: ThemeData(
         primaryColor: Colors.grey[100],
-        accentColor: Colors.red,
+        accentColor: const Color(0xFF0038a8),
       ),
       home: Index(),
     );
