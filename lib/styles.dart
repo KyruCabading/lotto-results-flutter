@@ -10,19 +10,41 @@ abstract class Styles {
   );
 
   // [COUNTDOWN]
+  // Header
+  static const TextStyle countdownHeader = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 30,
+    color: Colors.white,
+    // shadows: [
+    //   Shadow(
+    //     offset: Offset(0.0, 2.0),
+    //     blurRadius: 5.0,
+    //     color: Color.fromARGB(255, 0, 0, 0),
+    //   ),
+    // ],
+  );
+
   // Title
   static const TextStyle countdownTitle = TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 34,
-    letterSpacing: 5,
+    fontSize: 20,
+    letterSpacing: 1,
+    color: Colors.white,
+    // shadows: [
+    //   Shadow(
+    //     offset: Offset(0.0, 2.0),
+    //     blurRadius: 5.0,
+    //     color: Color.fromARGB(255, 0, 0, 0),
+    //   ),
+    // ],
   );
 
   // Subtitle
   static const TextStyle countdownSubtitle = TextStyle(
-    fontSize: 10,
+    fontSize: 12,
     letterSpacing: 1,
     fontWeight: FontWeight.w100,
-    color: Colors.grey,
+    color: Colors.white70,
   );
 
   // [LOTTO RESULT CONTROLLER]

@@ -27,7 +27,7 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             height:
                 appBarSize < kToolbarHeight ? positiveAppBarSize : appBarSize,
             child: Container(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).primaryColor,
               // elevation: 0,
             ),
           ),
@@ -59,28 +59,36 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             //   ),
             child: Opacity(
               opacity: percent,
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 16 * percent, vertical: 10 * percent),
-                    child: Card(
-                      color: Theme.of(context).accentColor,
-                      // color: Colors.white,
-                      elevation: 20.0,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 60, top: 5),
-                        child: CountDownTimer(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16 * percent),
+                child: Card(
+                  color: Theme.of(context).accentColor,
+                  // color: Colors.white,
+                  elevation: 20.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Thursday',
+                            style: Styles.countdownSubtitle,
+                          ),
+                          Text(
+                            'June 13',
+                            style: Styles.countdownHeader,
+                          ),
+                        ],
                       ),
-                    ),
+                      Container(
+                        width: 150,
+                        child: CountDownTimer(),
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 40),
-                    child: Image.asset(
-                      'assets/images/lotto.png',
-                    ),
-                  )
-                ],
+                ),
               ),
             ),
           ),
