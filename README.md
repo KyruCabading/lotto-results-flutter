@@ -15,7 +15,7 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
 
-# Installing Android SDK
+### Installing Android SDK
 From @andrewhavens
 https://gist.github.com/patrickhammond/4ddbe49a67e5eb1b9c03#gistcomment-2903816
 
