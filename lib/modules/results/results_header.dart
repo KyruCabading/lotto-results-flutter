@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lotto/styles.dart';
 import 'countdown.dart';
+import 'package:intl/intl.dart';
 
 class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -19,6 +20,9 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
     final proportion = 2 - (expandedHeight / appBarSize);
     final percent = proportion < 0 || proportion > 1 ? 0.0 : proportion;
     final positiveAppBarSize = appBarSize > 0 ? appBarSize : 0.0;
+
+    final date = DateTime.now();
+
     return SizedBox(
       height: expandedHeight + expandedHeight / 2,
       child: Stack(
@@ -28,7 +32,6 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
                 appBarSize < kToolbarHeight ? positiveAppBarSize : appBarSize,
             child: Container(
               color: Theme.of(context).primaryColor,
-              // elevation: 0,
             ),
           ),
           Positioned(
@@ -36,27 +39,6 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
             right: 0.0,
             top: cardTopPosition > 0 ? cardTopPosition : 0,
             bottom: 0.0,
-            // child: Opacity(
-            //   opacity: percent,
-            //   child: Padding(
-            //     padding: EdgeInsets.symmetric(horizontal: 16 * percent),
-            //     child: Card(
-            //       color: Colors.white,
-            //       elevation: 20.0,
-            //       child: Padding(
-            //         padding: EdgeInsets.symmetric(horizontal: 10),
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //           children: <Widget>[
-            //             Image.asset(
-            //               'assets/images/wheel.png',
-            //             ),
-            //             CountDownTimer()
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
             child: Opacity(
               opacity: percent,
               child: Padding(
@@ -73,11 +55,11 @@ class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Thursday',
+                            '${DateFormat('EEEE').format(date)}',
                             style: Styles.countdownSubtitle,
                           ),
                           Text(
-                            'June 13',
+                            '${DateFormat('MMMMd').format(date)}',
                             style: Styles.countdownHeader,
                           ),
                         ],
