@@ -30,3 +30,6 @@ touch ~/.android/repositories.cfg
 sdkmanager --update
 sdkmanager "platform-tools" "platforms;android-28"
 ```
+
+Then set Flutter to your android-sdk path
+`flutter config --android-sdk <path-to-your-android-sdk-path>`
