@@ -1,6 +1,6 @@
-# lotto
+# PCSO Lotto Results: Updated Daily
 
-A new Flutter project.
+
 
 ## Getting Started
 
@@ -14,3 +14,19 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
+
+# Installing Android SDK
+From @andrewhavens
+https://gist.github.com/patrickhammond/4ddbe49a67e5eb1b9c03#gistcomment-2903816
+
+```
+brew cask install adoptopenjdk8
+brew cask install android-sdk
+
+echo "export ANDROID_HOME=/usr/local/share/android-sdk" >> ~/.bash_profile
+source ~/.bash_profile
+
+touch ~/.android/repositories.cfg
+sdkmanager --update
+sdkmanager "platform-tools" "platforms;android-28"
+```
