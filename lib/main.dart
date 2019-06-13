@@ -18,6 +18,7 @@ class App extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.white));
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'My Flutter App',
       theme: ThemeData(
         primaryColor: Colors.grey[100],
