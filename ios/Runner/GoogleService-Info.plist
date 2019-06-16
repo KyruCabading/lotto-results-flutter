@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>574523313893-dnej96cd4qrqpk4pn3nu4e3sdnr3dgbv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.574523313893-dnej96cd4qrqpk4pn3nu4e3sdnr3dgbv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDa6VRXB5kdjtgVkvDIkoAO2Eh-4lTBuKo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>574523313893</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kyrucabading.lotto</string>
+	<key>PROJECT_ID</key>
+	<string>pcso-lotto-results-d5cc4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pcso-lotto-results-d5cc4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:574523313893:ios:ed842f4aed9f0e61</string>
+	<key>DATABASE_URL</key>
+	<string>https://pcso-lotto-results-d5cc4.firebaseio.com</string>
+</dict>
+</plist>
