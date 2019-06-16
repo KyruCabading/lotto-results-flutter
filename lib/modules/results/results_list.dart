@@ -151,22 +151,24 @@ class ResultsListController extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              _buildButton('All', Game.all, 'assets/images/pcso.png', model),
               _buildButton(
-                  'Ultra', Game.ultra658, 'assets/images/ultra-658.png', model),
-              _buildButton(
-                  'Mega', Game.mega645, 'assets/images/mega-645.png', model),
-              _buildButton(
-                  'Super', Game.super649, 'assets/images/super-649.png', model),
-              _buildButton(
-                  'Lotto', Game.lotto642, 'assets/images/lotto-642.png', model),
-              _buildButton(
-                  '6Digit', Game.digit6, 'assets/images/6digit.png', model),
-              _buildButton(
-                  '4Digit', Game.digit4, 'assets/images/4digit.png', model),
-              _buildButton('Suertres', Game.suertres,
+                  context, 'All', Game.all, 'assets/images/pcso.png', model),
+              _buildButton(context, 'Ultra', Game.ultra658,
+                  'assets/images/ultra-658.png', model),
+              _buildButton(context, 'Mega', Game.mega645,
+                  'assets/images/mega-645.png', model),
+              _buildButton(context, 'Super', Game.super649,
+                  'assets/images/super-649.png', model),
+              _buildButton(context, 'Lotto', Game.lotto642,
+                  'assets/images/lotto-642.png', model),
+              _buildButton(context, '6Digit', Game.digit6,
+                  'assets/images/6digit.png', model),
+              _buildButton(context, '4Digit', Game.digit4,
+                  'assets/images/4digit.png', model),
+              _buildButton(context, 'Suertres', Game.suertres,
                   'assets/images/suertres.png', model),
-              _buildButton('EZ2', Game.ez2, 'assets/images/ez2.png', model),
+              _buildButton(
+                  context, 'EZ2', Game.ez2, 'assets/images/ez2.png', model),
             ],
           ),
         ),
@@ -175,28 +177,30 @@ class ResultsListController extends StatelessWidget {
   }
 
   Widget _buildButton(
-      String name, Game game, String image, AppStateModel model) {
+      context, String name, Game game, String image, AppStateModel model) {
     return Padding(
       padding: const EdgeInsets.only(right: 14, top: 10),
-      child: Column(
-        children: <Widget>[
-          FloatingActionButton(
-            elevation: 2,
-            child: Container(
-              width: 55,
-              height: 55,
-              child: Image.asset(image),
+      child: MergeSemantics(
+        child: Column(
+          children: <Widget>[
+            FloatingActionButton(
+              elevation: 2,
+              child: Container(
+                width: 55,
+                height: 55,
+                child: Image.asset(image),
+              ),
+              backgroundColor: Colors.white,
+              onPressed: () {
+                model.setSelectedGame(game);
+              },
             ),
-            backgroundColor: Colors.white,
-            onPressed: () {
-              model.setSelectedGame(game);
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(name, style: Styles.lottoResultControllerTitle),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(name, style: Styles.lottoResultControllerTitle),
+            )
+          ],
+        ),
       ),
     );
   }
