@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lotto/styles.dart';
-import 'countdown.dart';
+import '../countdown/countdown.dart';
 import 'package:intl/intl.dart';
 
 class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
