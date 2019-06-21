@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class PlaceholderWidget extends StatelessWidget {
+class PlaceholderScreen extends StatelessWidget {
   final Color color;
 
-  PlaceholderWidget(this.color);
+  PlaceholderScreen(this.color);
 
   @override
   Widget build(BuildContext context) {

@@ -19,67 +19,36 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
     super.initState();
 
     _items = [
-      AppPage(
-        title: 'My Tickets',
-        icon: Icon(Icons.receipt),
-        color: Colors.blueAccent.shade400,
-        body: ResultsScreen(),
-        vsync: this,
-      ),
+      // AppPage(
+      //   title: 'My Tickets',
+      //   icon: Icons.receipt,
+      //   color: Colors.blueAccent.shade400,
+      //   body: ResultsScreen(),
+      // ),
       AppPage(
         title: "Results",
-        icon: Icon(Icons.today),
+        icon: Icons.today,
         color: Colors.red,
         body: ResultsScreen(),
-        vsync: this,
       ),
+      // AppPage(
+      //   title: "Lucky Pick",
+      //   icon: Icons.person,
+      //   color: Colors.teal,
+      //   body: PlaceholderScreen(Colors.blue),
+      // ),
       AppPage(
-        title: "Lucky Pick",
-        icon: Icon(Icons.person),
-        color: Colors.teal,
-        body: ResultsScreen(),
-        vsync: this,
-      ),
-      AppPage(
-        title: "Profile",
-        icon: Icon(Icons.person),
-        color: Colors.blueAccent.shade400,
-        body: ResultsScreen(),
-        vsync: this,
+        title: "Settings",
+        icon: Icons.settings,
+        color: Colors.grey,
+        body: PlaceholderScreen(Colors.grey),
       ),
     ];
   }
 
-  final List<String> _titles = [
-    "My Tickets",
-    "Results",
-    "Lucky Pick",
-    "Profile"
-  ];
-
-  final List<Widget> _contents = [
-    ResultsScreen(),
-    ResultsScreen(),
-    PlaceholderWidget(Colors.blue),
-    PlaceholderWidget(Colors.yellow),
-  ];
-
-  final Duration duration = Duration(milliseconds: 150);
-
-  Widget _buildPageStack() {
-    final List<Widget> transitions = <Widget>[];
-
-    for (int i = 0; i < _items.length; i++) {
-      transitions.add(IgnorePointer(
-          ignoring: _currentIndex != i,
-          child: _items[i].buildTransition(context)));
-    }
-    return new Stack(children: transitions);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationBar navBar = BottomNavigationBar(
+    final BottomNavigationBar _navBar = BottomNavigationBar(
       items: _items.map((page) {
         return page.item;
       }).toList(),
@@ -91,16 +60,18 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
       },
     );
 
+    final Widget _body = AnimatedSwitcher(
+      duration: Duration(milliseconds: 150),
+      child: Container(
+        child: _items[_currentIndex].body,
+        key: ValueKey<int>(_currentIndex),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: AnimatedSwitcher(
-        duration: duration,
-        child: Container(
-          child: _contents[_currentIndex],
-          key: ValueKey<int>(_currentIndex),
-        ),
-      ),
-      bottomNavigationBar: navBar,
+      body: _body,
+      bottomNavigationBar: _navBar,
     );
   }
 }
