@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:lotto/model/app_state_model.dart';
-import 'package:lotto/modules/results/results_header.dart';
+import 'package:lotto/modules/countdown/index.dart';
 import 'package:lotto/modules/results/results_list.dart';
 
 class ResultsScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class ResultsScreen extends StatelessWidget {
       return NestedScrollView(
         headerSliverBuilder: (context, innerBoxScrolled) => [
           SliverPersistentHeader(
-            delegate: ResultsHeaderSliverDelegate(
+            delegate: CountdownCardSliverDelegate(
               expandedHeight: 100,
             ),
           ),

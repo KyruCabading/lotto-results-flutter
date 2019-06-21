@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:lotto/styles.dart';
-import '../countdown/countdown.dart';
 import 'package:intl/intl.dart';
+import './components/timer.dart';
+import 'package:lotto/styles.dart';
 
-class ResultsHeaderSliverDelegate extends SliverPersistentHeaderDelegate {
+class CountdownCardSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final bool hideTitleWhenExpanded;
 
-  ResultsHeaderSliverDelegate({
+  CountdownCardSliverDelegate({
     @required this.expandedHeight,
     this.hideTitleWhenExpanded = true,
   });

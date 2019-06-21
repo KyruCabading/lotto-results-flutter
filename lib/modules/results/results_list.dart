@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import "package:collection/collection.dart";
-import 'package:lotto/styles.dart';
 import 'package:intl/intl.dart';
+import 'package:lotto/modules/results/components/result_card.dart';
+import 'package:provider/provider.dart';
+import "package:collection/collection.dart";
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:lotto/model/app_state_model.dart';
-
 import 'package:lotto/model/lottoresult.dart';
-import 'numbers.dart';
+import './components/gamebutton.dart';
+import 'package:lotto/styles.dart';
+
+class ResultsListController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppStateModel>(builder: (context, model, child) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 100.0,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            scrollDirection: Axis.horizontal,
+            children: gameButtons,
+          ),
+        ),
+      );
+    });
+  }
+}
 
 class ResultsList {
   const ResultsList({
@@ -89,119 +107,8 @@ class ResultsList {
   }
 
   static Widget _buildTile(BuildContext context, LottoResult lottoResult) {
-    final jackpotValueText =
-        NumberFormat.simpleCurrency(name: 'PHP').format(lottoResult.jackpot);
-
-    final winnerNumberText = '${lottoResult.winners} winners';
-
-    return Card(
-      color: lottoResult.color,
-      child: ListTile(
-        dense: true,
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 20,
-        ),
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            children: <Widget>[
-              Text(
-                '${lottoResult.name}',
-                style: Styles.lottoResultTitle,
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: Icon(
-                    lottoResult.icon,
-                    color: Colors.orangeAccent,
-                    size: 16,
-                  )),
-            ],
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: NumberBalls(
-                  numberValues: lottoResult.combination,
-                  color: lottoResult.color,
-                )),
-            Text(
-              '$jackpotValueText • $winnerNumberText',
-              style: Styles.lottoResultJackpot,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ResultsListController extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppStateModel>(builder: (context, model, child) {
-      return SliverToBoxAdapter(
-        child: Container(
-          height: 100.0,
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              _buildButton(
-                  context, 'All', Game.all, 'assets/images/pcso.png', model),
-              _buildButton(context, 'Ultra', Game.ultra658,
-                  'assets/images/ultra-658.png', model),
-              _buildButton(context, 'Mega', Game.mega645,
-                  'assets/images/mega-645.png', model),
-              _buildButton(context, 'Super', Game.super649,
-                  'assets/images/super-649.png', model),
-              _buildButton(context, 'Lotto', Game.lotto642,
-                  'assets/images/lotto-642.png', model),
-              _buildButton(context, '6Digit', Game.digit6,
-                  'assets/images/6digit.png', model),
-              _buildButton(context, '4Digit', Game.digit4,
-                  'assets/images/4digit.png', model),
-              _buildButton(context, 'Suertres', Game.suertres,
-                  'assets/images/suertres.png', model),
-              _buildButton(
-                  context, 'EZ2', Game.ez2, 'assets/images/ez2.png', model),
-            ],
-          ),
-        ),
-      );
-    });
-  }
-
-  Widget _buildButton(
-      context, String name, Game game, String image, AppStateModel model) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 14, top: 10),
-      child: MergeSemantics(
-        child: Column(
-          children: <Widget>[
-            FloatingActionButton(
-              elevation: 2,
-              child: Container(
-                width: 55,
-                height: 55,
-                child: Image.asset(image),
-              ),
-              backgroundColor: Colors.white,
-              onPressed: () {
-                model.setSelectedGame(game);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4),
-              child: Text(name, style: Styles.lottoResultControllerTitle),
-            )
-          ],
-        ),
-      ),
+    return ResultCard(
+      lottoResult: lottoResult,
     );
   }
 }
