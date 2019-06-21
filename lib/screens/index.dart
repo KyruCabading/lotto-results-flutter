@@ -11,7 +11,7 @@ class Index extends StatefulWidget {
 }
 
 class _IndexState extends State<Index> with TickerProviderStateMixin {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   List<AppPage> _items;
 
   @override
