@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:lotto/modules/results/components/result_card.dart';
-import 'package:provider/provider.dart';
 import "package:collection/collection.dart";
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:lotto/model/app_state_model.dart';
 import 'package:lotto/model/lottoresult.dart';
-import './components/gamebutton.dart';
+import './components/results_list_sideheader.dart';
+import './components/results_list_controller.dart';
 import 'package:lotto/styles.dart';
-
-class ResultsListController extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AppStateModel>(builder: (context, model, child) {
-      return SliverToBoxAdapter(
-        child: Container(
-          height: 100.0,
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            scrollDirection: Axis.horizontal,
-            children: gameButtons,
-          ),
-        ),
-      );
-    });
-  }
-}
 
 class ResultsList {
   const ResultsList({
@@ -85,24 +65,8 @@ class ResultsList {
   }
 
   static Widget _buildSideHeader(BuildContext context, DateTime date) {
-    var weekday = new DateFormat('E').format(date);
-    var month = new DateFormat('MMM').format(date);
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Column(
-          children: <Widget>[
-            Text('$month'.toUpperCase(),
-                textAlign: TextAlign.center, style: Styles.dateHeaderMonth),
-            Text('${date.day}',
-                textAlign: TextAlign.center, style: Styles.dateHeaderDay),
-            Text('$weekday'.toUpperCase(),
-                textAlign: TextAlign.center, style: Styles.dateHeaderWeekday),
-          ],
-        ),
-      ),
+    return ResultsListSideheader(
+      date: date,
     );
   }
 

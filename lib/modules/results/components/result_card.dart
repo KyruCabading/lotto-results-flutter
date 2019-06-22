@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lotto/model/lottoresult.dart';
-import './numbers.dart';
+import './lotto_numbers.dart';
 import 'package:lotto/styles.dart';
 
 class ResultCard extends StatelessWidget {
@@ -46,7 +46,7 @@ class ResultCard extends StatelessWidget {
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: NumberBalls(
+                child: LottoNumbers(
                   numberValues: lottoResult.combination,
                   color: lottoResult.color,
                 )),

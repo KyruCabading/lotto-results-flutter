@@ -4,6 +4,24 @@ import 'package:lotto/model/app_state_model.dart';
 import 'package:lotto/model/lottoresult.dart';
 import 'package:lotto/styles.dart';
 
+class ResultsListController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppStateModel>(builder: (context, model, child) {
+      return SliverToBoxAdapter(
+        child: Container(
+          height: 100.0,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            scrollDirection: Axis.horizontal,
+            children: gameButtons,
+          ),
+        ),
+      );
+    });
+  }
+}
+
 const List<GameButton> gameButtons = [
   GameButton(
     name: 'All',
