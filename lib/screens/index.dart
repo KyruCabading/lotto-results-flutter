@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import './apppage.dart';
 import 'placeholder.dart';
 import 'results.dart';
@@ -10,13 +11,25 @@ class Index extends StatefulWidget {
   }
 }
 
-class _IndexState extends State<Index> with TickerProviderStateMixin {
+class _IndexState extends State<Index> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   int _currentIndex = 0;
   List<AppPage> _items;
 
   @override
   void initState() {
     super.initState();
+
+    // // Notifications
+    // _firebaseMessaging.configure(
+    //     onMessage: (Map<String, dynamic> message) async {
+    //   _handleNotification(message);
+    // }, onLaunch: (Map<String, dynamic> message) async {
+    //   // Do nothing on launch
+    // }, onResume: (Map<String, dynamic> message) async {
+    //   _handleNotification(message);
+    // });
 
     _items = [
       // AppPage(
@@ -28,7 +41,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
       AppPage(
         title: "Results",
         icon: Icons.today,
-        color: Colors.red,
+        color: Colors.grey,
         body: ResultsScreen(),
       ),
       // AppPage(
@@ -41,7 +54,7 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
         title: "Settings",
         icon: Icons.settings,
         color: Colors.grey,
-        body: PlaceholderScreen(Colors.grey),
+        body: PlaceholderScreen(Colors.grey.shade100),
       ),
     ];
   }
@@ -58,6 +71,8 @@ class _IndexState extends State<Index> with TickerProviderStateMixin {
           _currentIndex = int;
         });
       },
+      selectedItemColor: Colors.grey.shade800,
+      unselectedItemColor: Colors.grey.shade400,
     );
 
     final Widget _body = AnimatedSwitcher(
