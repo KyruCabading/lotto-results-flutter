@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import './apppage.dart';
 import 'placeholder.dart';
 import 'results.dart';
-import 'package:lotto/styles.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -10,80 +10,68 @@ class Index extends StatefulWidget {
   }
 }
 
-class _IndexState extends State<Index> {
-  int _currentIndex = 1;
-  final List<String> _titles = [
-    "My Tickets",
-    "Results",
-    "Lucky Pick",
-    "Profile"
-  ];
+class _IndexState extends State<Index> with TickerProviderStateMixin {
+  int _currentIndex = 0;
+  List<AppPage> _items;
 
-  final List<Widget> _contents = [
-    ResultsScreen(),
-    ResultsScreen(),
-    PlaceholderWidget(Colors.blue),
-    PlaceholderWidget(Colors.yellow),
-  ];
+  @override
+  void initState() {
+    super.initState();
 
-  final Duration duration = Duration(milliseconds: 150);
+    _items = [
+      // AppPage(
+      //   title: 'My Tickets',
+      //   icon: Icons.receipt,
+      //   color: Colors.blueAccent.shade400,
+      //   body: ResultsScreen(),
+      // ),
+      AppPage(
+        title: "Results",
+        icon: Icons.today,
+        color: Colors.red,
+        body: ResultsScreen(),
+      ),
+      // AppPage(
+      //   title: "Lucky Pick",
+      //   icon: Icons.person,
+      //   color: Colors.teal,
+      //   body: PlaceholderScreen(Colors.blue),
+      // ),
+      AppPage(
+        title: "Settings",
+        icon: Icons.settings,
+        color: Colors.grey,
+        body: PlaceholderScreen(Colors.grey),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final BottomNavigationBar _navBar = BottomNavigationBar(
+      items: _items.map((page) {
+        return page.item;
+      }).toList(),
+      currentIndex: _currentIndex,
+      onTap: (int) {
+        setState(() {
+          _currentIndex = int;
+        });
+      },
+    );
+
+    final Widget _body = AnimatedSwitcher(
+      duration: Duration(milliseconds: 150),
+      child: Container(
+        child: _items[_currentIndex].body,
+        key: ValueKey<int>(_currentIndex),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      // appBar: AppBar(
-      //   // backgroundColor: Colors.red,
-      //   title: AnimatedSwitcher(
-      //     duration: duration,
-      //     child: Text('PCSO Lotto Results', style: Styles.appHeaderTitle),
-      //     // child: Text(
-      //     //   _titles[_currentIndex],
-      //     //   key: ValueKey<int>(_currentIndex),
-      //     // ),
-      //   ),
-      //   elevation: 8,
-      //   // backgroundColor: Theme.of(context).primaryColor,
-      // ),
-      body: AnimatedSwitcher(
-        duration: duration,
-        child: Container(
-          child: _contents[_currentIndex],
-          key: ValueKey<int>(_currentIndex),
-        ),
-      ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   elevation: 0,
-      //   // backgroundColor: Colors.white,
-      //   // unselectedItemColor: Theme.of(context).accentColor.withAlpha(100),
-      //   // fixedColor: Theme.of(context).accentColor,
-      //   onTap: onTabTapped,
-      //   currentIndex: _currentIndex,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.receipt),
-      //       title: Text(_titles[0]),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.today),
-      //       title: Text(_titles[1]),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       title: Text(_titles[2]),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       title: Text(_titles[3]),
-      //     )
-      //   ],
-      // ),
+      body: _body,
+      bottomNavigationBar: _navBar,
     );
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }
