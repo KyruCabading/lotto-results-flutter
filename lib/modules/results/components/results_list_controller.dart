@@ -34,14 +34,19 @@ const List<GameButton> gameButtons = [
     image: 'assets/images/ultra-658.png',
   ),
   GameButton(
-    name: 'Mega',
-    game: Game.mega645,
-    image: 'assets/images/mega-645.png',
+    name: 'Grand',
+    game: Game.grand655,
+    image: 'assets/images/grand-655.png',
   ),
   GameButton(
     name: 'Super',
     game: Game.super649,
     image: 'assets/images/super-649.png',
+  ),
+  GameButton(
+    name: 'Mega',
+    game: Game.mega645,
+    image: 'assets/images/mega-645.png',
   ),
   GameButton(
     name: 'Lotto',
