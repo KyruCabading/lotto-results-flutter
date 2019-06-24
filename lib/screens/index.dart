@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:lotto/model/app_state_model.dart';
 import './apppage.dart';
 import 'placeholder.dart';
 import 'results.dart';
@@ -21,15 +23,15 @@ class _IndexState extends State<Index> {
   void initState() {
     super.initState();
 
-    // // Notifications
-    // _firebaseMessaging.configure(
-    //     onMessage: (Map<String, dynamic> message) async {
-    //   _handleNotification(message);
-    // }, onLaunch: (Map<String, dynamic> message) async {
-    //   // Do nothing on launch
-    // }, onResume: (Map<String, dynamic> message) async {
-    //   _handleNotification(message);
-    // });
+    // Notifications
+    _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+      _handleNotification(message);
+    }, onLaunch: (Map<String, dynamic> message) async {
+      // Do nothing on launch
+    }, onResume: (Map<String, dynamic> message) async {
+      _handleNotification(message);
+    });
 
     _items = [
       // AppPage(
@@ -88,5 +90,11 @@ class _IndexState extends State<Index> {
       body: _body,
       bottomNavigationBar: _navBar,
     );
+  }
+
+  void _handleNotification(Map<String, dynamic> notification) {
+    if (notification.containsKey('notification')) {
+      Provider.of<AppStateModel>(context).loadResults();
+    }
   }
 }
