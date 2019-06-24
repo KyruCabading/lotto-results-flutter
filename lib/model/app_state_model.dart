@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart' as foundation;
-
 import 'lottoresult.dart';
 import 'lottoresult_repository.dart';
 

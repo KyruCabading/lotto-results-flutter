@@ -11,10 +11,9 @@ class AppPage {
         this._title = title,
         this._color = color,
         this.item = new BottomNavigationBarItem(
-          icon: Icon(icon, color: color),
+          icon: Icon(icon),
           title: new Text(
             title,
-            style: TextStyle(color: color),
           ),
         );
 
