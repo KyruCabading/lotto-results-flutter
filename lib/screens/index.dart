@@ -87,8 +87,9 @@ class _IndexState extends State<Index> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: _body,
-      bottomNavigationBar: _navBar,
+      body: ResultsScreen(),
+      // body: _body,
+      // bottomNavigationBar: _navBar,
     );
   }
 
