@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
+// Models
 import 'package:lotto/model/app_state_model.dart';
+
+// Screens
 import './apppage.dart';
 import 'placeholder.dart';
 import 'results.dart';
+import 'playlist.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -46,18 +51,18 @@ class _IndexState extends State<Index> {
         color: Colors.grey,
         body: ResultsScreen(),
       ),
-      // AppPage(
-      //   title: "Lucky Pick",
-      //   icon: Icons.person,
-      //   color: Colors.teal,
-      //   body: PlaceholderScreen(Colors.blue),
-      // ),
       AppPage(
-        title: "Settings",
-        icon: Icons.settings,
-        color: Colors.grey,
-        body: PlaceholderScreen(Colors.grey.shade100),
+        title: "Watch",
+        icon: Icons.live_tv,
+        color: Colors.teal,
+        body: PlaylistScreen(),
       ),
+      // AppPage(
+      //   title: "Settings",
+      //   icon: Icons.settings,
+      //   color: Colors.grey,
+      //   body: PlaceholderScreen(Colors.grey.shade100),
+      // ),
     ];
   }
 
@@ -87,9 +92,9 @@ class _IndexState extends State<Index> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: ResultsScreen(),
-      // body: _body,
-      // bottomNavigationBar: _navBar,
+      // body: ResultsScreen(),
+      body: _body,
+      bottomNavigationBar: _navBar,
     );
   }
 
