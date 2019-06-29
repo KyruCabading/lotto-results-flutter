@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 
 // Models
 import 'package:lotto/model/app_state_model.dart';
@@ -13,22 +12,13 @@ import 'results.dart';
 import 'playlist.dart';
 
 class Index extends StatefulWidget {
-  Index({Key key, this.analytics, this.observer}) : super(key: key);
-
-  final FirebaseAnalytics analytics;
-  final FirebaseAnalyticsObserver observer;
-
   @override
   State<StatefulWidget> createState() {
-    return _IndexState(analytics, observer);
+    return _IndexState();
   }
 }
 
 class _IndexState extends State<Index> {
-  _IndexState(this.analytics, this.observer);
-
-  final FirebaseAnalyticsObserver observer;
-  final FirebaseAnalytics analytics;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   int _currentIndex = 0;
@@ -118,6 +108,6 @@ class _IndexState extends State<Index> {
 
   void _sendCurrentScreenToAnalytics() async {
     final _screenName = _items[_currentIndex].title;
-    observer.analytics.setCurrentScreen(screenName: _screenName);
+    FirebaseAnalytics().setCurrentScreen(screenName: _screenName);
   }
 }

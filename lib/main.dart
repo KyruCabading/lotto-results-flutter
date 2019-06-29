@@ -27,10 +27,7 @@ class App extends StatelessWidget {
         primaryColor: Colors.grey[100],
         accentColor: const Color(0xFF0038a8),
       ),
-      home: Index(
-        analytics: analytics,
-        observer: observer,
-      ),
+      home: Index(),
     );
   }
 }
