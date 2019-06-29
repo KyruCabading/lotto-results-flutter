@@ -74,6 +74,7 @@ class _IndexState extends State<Index> {
       //   body: PlaceholderScreen(Colors.grey.shade100),
       // ),
     ];
+    _sendCurrentScreenToAnalytics();
   }
 
   @override
@@ -86,8 +87,8 @@ class _IndexState extends State<Index> {
       onTap: (int) {
         setState(() {
           _currentIndex = int;
-          observer.analytics.setCurrentScreen(screenName: _items[int].title);
         });
+        _sendCurrentScreenToAnalytics();
       },
       selectedItemColor: Colors.grey.shade800,
       unselectedItemColor: Colors.grey.shade400,
@@ -113,5 +114,10 @@ class _IndexState extends State<Index> {
     if (notification.containsKey('notification')) {
       Provider.of<AppStateModel>(context).loadResults();
     }
+  }
+
+  void _sendCurrentScreenToAnalytics() async {
+    final _screenName = _items[_currentIndex].title;
+    observer.analytics.setCurrentScreen(screenName: _screenName);
   }
 }
