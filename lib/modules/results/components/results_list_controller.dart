@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:lotto/model/app_state_model.dart';
 import 'package:lotto/model/lottoresult.dart';
 import 'package:lotto/styles.dart';
+import 'package:lotto/analytics.dart';
 
 class ResultsListController extends StatelessWidget {
   @override
@@ -99,6 +100,7 @@ class GameButton extends StatelessWidget {
                 backgroundColor: Colors.white,
                 onPressed: () {
                   model.setSelectedGame(game);
+                  analyticsResultsFiltered(game);
                 },
               ),
               Padding(

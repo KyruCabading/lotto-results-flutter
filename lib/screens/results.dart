@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:lotto/model/app_state_model.dart';
 import 'package:lotto/modules/countdown/index.dart';
 import 'package:lotto/modules/results/results_list.dart';
+import 'package:lotto/analytics.dart';
 
 class ResultsScreen extends StatelessWidget {
   @override
@@ -21,7 +22,9 @@ class ResultsScreen extends StatelessWidget {
         ],
         body: RefreshIndicator(
           displacement: 200,
-          onRefresh: () => model.loadResults(),
+          onRefresh: () => model.loadResults().whenComplete(() {
+            analyticsResultsRefreshed();
+          }),
           child: CustomScrollView(
             physics: ClampingScrollPhysics(),
             slivers: [

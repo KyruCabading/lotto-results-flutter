@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:lotto/analytics.dart';
 
 // Models
 import 'package:lotto/model/app_state_model.dart';
@@ -108,6 +108,6 @@ class _IndexState extends State<Index> {
 
   void _sendCurrentScreenToAnalytics() async {
     final _screenName = _items[_currentIndex].title;
-    FirebaseAnalytics().setCurrentScreen(screenName: _screenName);
+    analyticsSetCurrentScreen(_screenName);
   }
 }
