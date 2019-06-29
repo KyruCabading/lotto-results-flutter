@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 
 // Models
 import 'package:lotto/model/app_state_model.dart';
 
 // Screens
-import './apppage.dart';
-import 'placeholder.dart';
+import 'apppage.dart';
 import 'results.dart';
 import 'playlist.dart';
 
 class Index extends StatefulWidget {
+  Index({Key key, this.analytics, this.observer}) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
   @override
   State<StatefulWidget> createState() {
-    return _IndexState();
+    return _IndexState(analytics, observer);
   }
 }
 
 class _IndexState extends State<Index> {
+  _IndexState(this.analytics, this.observer);
+
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   int _currentIndex = 0;
@@ -76,6 +86,7 @@ class _IndexState extends State<Index> {
       onTap: (int) {
         setState(() {
           _currentIndex = int;
+          observer.analytics.setCurrentScreen(screenName: _items[int].title);
         });
       },
       selectedItemColor: Colors.grey.shade800,
