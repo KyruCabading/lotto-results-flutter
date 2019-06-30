@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lotto/model/app_state_model.dart';
 import 'package:youtube_player/youtube_player.dart';
+import 'package:lotto/analytics.dart';
 import 'package:lotto/styles.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -40,17 +41,29 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   }
 }
 
-class ListVideo extends StatelessWidget {
+class ListVideo extends StatefulWidget {
   final List list;
   ListVideo({this.list});
+  @override
+  State<StatefulWidget> createState() {
+    return _ListVideoState(list);
+  }
+}
+
+class _ListVideoState extends State<ListVideo> {
+  _ListVideoState(this.list);
+
+  final List list;
+  int selectedVideo;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        final thumbnail = list[i]['snippet']['thumbnails']['high']['url'];
-
-        final title = list[i]['snippet']['title'];
+        final videoSnippet = list[i]['snippet'];
+        final thumbnail = videoSnippet['thumbnails']['high']['url'];
+        final title = videoSnippet['title'];
         final videoId = list[i]['contentDetails']['videoId'];
 
         return Container(
@@ -58,16 +71,22 @@ class ListVideo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              VideoPlayer(
-                videoId: videoId,
-                thumbnail: thumbnail,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedVideo = i;
+                    analyticsVideoSelected();
+                  });
+                },
+                child: VideoPlayer(
+                  videoId: videoId,
+                  thumbnail: thumbnail,
+                  isPreview: selectedVideo != i,
+                ),
               ),
               Padding(
-                child: Text(
-                  title,
-                  style: Styles.videoTitle,
-                ),
-                padding: const EdgeInsets.all(15),
+                child: Text(title, style: Styles.videoTitle),
+                padding: const EdgeInsets.all(20),
               ),
               Divider(),
             ],
@@ -78,45 +97,27 @@ class ListVideo extends StatelessWidget {
   }
 }
 
-class VideoPlayer extends StatefulWidget {
-  final videoId;
-  final thumbnail;
-  VideoPlayer({this.videoId, this.thumbnail});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _VideoPlayerState(videoId, thumbnail);
-  }
-}
-
-class _VideoPlayerState extends State<VideoPlayer> {
-  _VideoPlayerState(this.videoId, this.thumbnail);
+class VideoPlayer extends StatelessWidget {
+  VideoPlayer({this.videoId, this.thumbnail, this.isPreview});
 
   final String videoId;
   final String thumbnail;
-  bool displayPlayer = false;
+  final bool isPreview;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          displayPlayer = !displayPlayer;
-        });
-      },
-      child: displayPlayer
-          ? YoutubePlayer(
-              context: context,
-              source: videoId,
-              quality: YoutubeQuality.HIGH,
-              autoPlay: false,
-            )
-          : Container(
-              height: 210,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(thumbnail))),
-            ),
-    );
+    return isPreview
+        ? Container(
+            height: 210,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: NetworkImage(thumbnail))),
+          )
+        : YoutubePlayer(
+            context: context,
+            source: videoId,
+            quality: YoutubeQuality.HIGH,
+            autoPlay: false,
+          );
   }
 }
