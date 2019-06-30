@@ -20,3 +20,8 @@ void analyticsResultsRefreshed() async {
     name: 'results_refreshed',
   );
 }
+
+// Playlist
+void analyticsVideoSelected() async {
+  await FirebaseAnalytics().logEvent(name: 'video_selected');
+}
