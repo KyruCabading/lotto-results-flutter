@@ -22,7 +22,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorObservers: <NavigatorObserver>[observer],
-      title: 'My Flutter App',
+      title: 'PCSO Lotto Results',
       theme: ThemeData(
         primaryColor: Colors.grey[100],
         accentColor: const Color(0xFF0038a8),
