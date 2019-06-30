@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lotto/model/app_state_model.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player/youtube_player.dart';
 import 'package:lotto/styles.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -58,20 +58,14 @@ class ListVideo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              YoutubePlayer(
-                key: Key(videoId),
-                context: context,
+              VideoPlayer(
                 videoId: videoId,
-                flags: YoutubePlayerFlags(
-                  autoPlay: false,
-                  showVideoProgressIndicator: true,
-                ),
-                videoProgressIndicatorColor: Colors.amber,
+                thumbnail: thumbnail,
               ),
               Padding(
                 child: Text(
                   title,
-                  style: Styles.playlistTitle,
+                  style: Styles.videoTitle,
                 ),
                 padding: const EdgeInsets.all(15),
               ),
@@ -80,6 +74,49 @@ class ListVideo extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class VideoPlayer extends StatefulWidget {
+  final videoId;
+  final thumbnail;
+  VideoPlayer({this.videoId, this.thumbnail});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _VideoPlayerState(videoId, thumbnail);
+  }
+}
+
+class _VideoPlayerState extends State<VideoPlayer> {
+  _VideoPlayerState(this.videoId, this.thumbnail);
+
+  final String videoId;
+  final String thumbnail;
+  bool displayPlayer = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          displayPlayer = !displayPlayer;
+        });
+      },
+      child: displayPlayer
+          ? YoutubePlayer(
+              context: context,
+              source: videoId,
+              quality: YoutubeQuality.HIGH,
+              autoPlay: false,
+            )
+          : Container(
+              height: 210,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(thumbnail))),
+            ),
     );
   }
 }

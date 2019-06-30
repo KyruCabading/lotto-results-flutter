@@ -96,5 +96,8 @@ abstract class Styles {
 
   // [PLAYLIST]
   // Title
-  static final TextStyle playlistTitle = TextStyle(fontSize: 18);
+  static final TextStyle videoTitle = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
 }
