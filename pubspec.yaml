@@ -27,6 +27,7 @@ dependencies:
   firebase_core: ^0.4.0+6
   firebase_analytics: ^3.0.3
   firebase_messaging: ^5.0.4
+  cloud_firestore: ^0.12.5+2
   youtube_player: ^3.4.1
 
 dev_dependencies:
