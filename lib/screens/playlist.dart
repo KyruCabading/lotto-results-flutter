@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'dart:convert';
 import 'package:lotto/model/app_state_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:lotto/styles.dart';
-
-final playlistUrl = 'https://pcso-gov-playlist-json.herokuapp.com/';
 
 class PlaylistScreen extends StatefulWidget {
   @override
@@ -38,19 +34,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               ),
             ),
           )
-          // Expanded(
-          //   child: FutureBuilder<List>(
-          //     future: videos,
-          //     builder: (context, snapshot) {
-          //       if (snapshot.hasError) print(snapshot.error);
-          //       return snapshot.hasData
-          //           ? ListVideo(list: snapshot.data)
-          //           : Center(
-          //               child: CircularProgressIndicator(),
-          //             );
-          //     },
-          //   ),
-          // )
         ],
       );
     });
@@ -65,7 +48,37 @@ class ListVideo extends StatelessWidget {
     return ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        return Text(list[i]['snippet']['title']);
+        final thumbnail = list[i]['snippet']['thumbnails']['high']['url'];
+
+        final title = list[i]['snippet']['title'];
+        final videoId = list[i]['contentDetails']['videoId'];
+
+        return Container(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              YoutubePlayer(
+                key: Key(videoId),
+                context: context,
+                videoId: videoId,
+                flags: YoutubePlayerFlags(
+                  autoPlay: false,
+                  showVideoProgressIndicator: true,
+                ),
+                videoProgressIndicatorColor: Colors.amber,
+              ),
+              Padding(
+                child: Text(
+                  title,
+                  style: Styles.playlistTitle,
+                ),
+                padding: const EdgeInsets.all(15),
+              ),
+              Divider(),
+            ],
+          ),
+        );
       },
     );
   }

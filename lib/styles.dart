@@ -93,4 +93,8 @@ abstract class Styles {
   static final TextStyle dateHeaderWeekday = TextStyle(
       // color: Colors.blueGrey[700],
       );
+
+  // [PLAYLIST]
+  // Title
+  static final TextStyle playlistTitle = TextStyle(fontSize: 18);
 }
