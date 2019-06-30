@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'screens/index.dart';
 import 'model/app_state_model.dart';
 
-void main() {
+Future main() async {
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   return runApp(ChangeNotifierProvider<AppStateModel>(
     builder: (context) => AppStateModel()..loadData(),
     child: App(),
