@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:lotto/model/app_state_model.dart';
 import 'package:lotto/styles.dart';
 
 final playlistUrl = 'https://pcso-gov-playlist-json.herokuapp.com/';
@@ -15,32 +16,44 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
-  Future<List> getVideos() async {
-    final response = await http.get(playlistUrl);
-    return json.decode(response.body);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        AppBar(
-          title: Text(
-            'Watch',
-            style: Styles.appHeaderTitle,
+    return Consumer<AppStateModel>(builder: (context, model, child) {
+      final videos = model.getVideos();
+
+      return Column(
+        children: <Widget>[
+          AppBar(
+            title: Text(
+              'Watch',
+              style: Styles.appHeaderTitle,
+            ),
           ),
-        ),
-        // FutureBuilder<List>(
-        //   future: getVideos(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasError) print(snapshot.error);
-        //     return snapshot.hasData
-        //         ? ListVideo(list: snapshot.data)
-        //         : CircularProgressIndicator();
-        //   },
-        // ),
-      ],
-    );
+          Expanded(
+            child: RefreshIndicator(
+              displacement: 200,
+              onRefresh: () => model.loadVideos(),
+              child: ListVideo(
+                list: videos,
+              ),
+            ),
+          )
+          // Expanded(
+          //   child: FutureBuilder<List>(
+          //     future: videos,
+          //     builder: (context, snapshot) {
+          //       if (snapshot.hasError) print(snapshot.error);
+          //       return snapshot.hasData
+          //           ? ListVideo(list: snapshot.data)
+          //           : Center(
+          //               child: CircularProgressIndicator(),
+          //             );
+          //     },
+          //   ),
+          // )
+        ],
+      );
+    });
   }
 }
 

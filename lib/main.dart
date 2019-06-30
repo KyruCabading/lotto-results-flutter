@@ -7,7 +7,7 @@ import 'model/app_state_model.dart';
 
 void main() {
   return runApp(ChangeNotifierProvider<AppStateModel>(
-    builder: (context) => AppStateModel()..loadResults(),
+    builder: (context) => AppStateModel()..loadData(),
     child: App(),
   ));
 }
