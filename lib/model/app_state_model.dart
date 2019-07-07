@@ -1,12 +1,17 @@
 import 'package:flutter/foundation.dart' as foundation;
 import 'lottoresult.dart';
 import 'lottoresult_repository.dart';
+import 'package:lotto/repository/playlist_respository.dart';
 
 class AppStateModel extends foundation.ChangeNotifier {
   List<LottoResult> _lottoResults;
-
+  List _videoList;
   Game _selectedGame = Game.all;
-  bool loadingLottoResults = true;
+
+  Future<void> loadData() async {
+    loadResults();
+    loadVideos();
+  }
 
   Future<void> loadResults() async {
     _lottoResults = await LottoResultRepository.loadResults();
@@ -30,5 +35,18 @@ class AppStateModel extends foundation.ChangeNotifier {
   void setSelectedGame(Game newGame) {
     _selectedGame = newGame;
     notifyListeners();
+  }
+
+  // Playlist
+  Future<void> loadVideos() async {
+    _videoList = await PlaylistRepository.loadVideos();
+    notifyListeners();
+  }
+
+  List getVideos() {
+    if (_videoList == null) {
+      return [];
+    }
+    return _videoList;
   }
 }

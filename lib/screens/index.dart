@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:lotto/analytics.dart';
+
+// Models
 import 'package:lotto/model/app_state_model.dart';
-import './apppage.dart';
-import 'placeholder.dart';
+
+// Screens
+import 'apppage.dart';
 import 'results.dart';
+import 'playlist.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -46,19 +51,20 @@ class _IndexState extends State<Index> {
         color: Colors.grey,
         body: ResultsScreen(),
       ),
-      // AppPage(
-      //   title: "Lucky Pick",
-      //   icon: Icons.person,
-      //   color: Colors.teal,
-      //   body: PlaceholderScreen(Colors.blue),
-      // ),
       AppPage(
-        title: "Settings",
-        icon: Icons.settings,
-        color: Colors.grey,
-        body: PlaceholderScreen(Colors.grey.shade100),
+        title: "Watch",
+        icon: Icons.live_tv,
+        color: Colors.teal,
+        body: PlaylistScreen(),
       ),
+      // AppPage(
+      //   title: "Settings",
+      //   icon: Icons.settings,
+      //   color: Colors.grey,
+      //   body: PlaceholderScreen(Colors.grey.shade100),
+      // ),
     ];
+    _sendCurrentScreenToAnalytics();
   }
 
   @override
@@ -72,6 +78,7 @@ class _IndexState extends State<Index> {
         setState(() {
           _currentIndex = int;
         });
+        _sendCurrentScreenToAnalytics();
       },
       selectedItemColor: Colors.grey.shade800,
       unselectedItemColor: Colors.grey.shade400,
@@ -87,9 +94,9 @@ class _IndexState extends State<Index> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: ResultsScreen(),
-      // body: _body,
-      // bottomNavigationBar: _navBar,
+      // body: ResultsScreen(),
+      body: _body,
+      bottomNavigationBar: _navBar,
     );
   }
 
@@ -97,5 +104,10 @@ class _IndexState extends State<Index> {
     if (notification.containsKey('notification')) {
       Provider.of<AppStateModel>(context).loadResults();
     }
+  }
+
+  void _sendCurrentScreenToAnalytics() async {
+    final _screenName = _items[_currentIndex].title;
+    analyticsSetCurrentScreen(_screenName);
   }
 }
