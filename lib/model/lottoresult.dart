@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class LottoResult {
@@ -25,10 +26,11 @@ class LottoResult {
   String get logoImage => GameLogoMap[name];
   int get priority => GamePriorityMap[name];
 
-  factory LottoResult.fromJson(Map<String, dynamic> parsedJson) {
+  factory LottoResult.fromJson(DocumentSnapshot parsedJson) {
     return LottoResult(
       name: parsedJson['name'],
-      date: DateTime.parse(parsedJson['date']),
+      date: new DateTime.fromMillisecondsSinceEpoch(
+          int.parse(parsedJson['date'])),
       jackpot: parsedJson['jackpot'],
       combination: parsedJson['combination'].toString().split("-"),
       winners: parsedJson['winners'],

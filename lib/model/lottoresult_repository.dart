@@ -1,29 +1,25 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'lottoresult.dart';
-import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LottoResultRepository {
-  static Future<String> _fetchLottoResults() async {
-    final response = await http
-        .get('https://api.sheety.co/8d9adee1-3854-4b6f-aaac-741a58edd0d8');
+  static Future<List<DocumentSnapshot>> _fetchLottoResults() async {
+    final QuerySnapshot querySnapshot = await Firestore.instance
+        .collection('lottoresults')
+        .orderBy('date', descending: true)
+        .limit(200)
+        .getDocuments();
 
-    if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON
-      return response.body;
-    } else {
-      // If that response was not OK, throw an error.
-      throw Exception('Failed to load post');
-    }
+    return querySnapshot.documents;
   }
 
   static Future loadResults() async {
-    String resultsString = await _fetchLottoResults();
-    final List jsonResponse = json.decode(resultsString);
-    final List<LottoResult> lottoResults = jsonResponse.reversed
-        .map((item) => LottoResult.fromJson(item))
-        .toList();
-    return lottoResults; // Return Latest First
+    List<DocumentSnapshot> results = await _fetchLottoResults();
+
+    final List<LottoResult> lottoResults =
+        results.map((item) => LottoResult.fromJson(item)).toList();
+
+    return lottoResults;
   }
 }
