@@ -7,6 +7,7 @@ import 'screens/index.dart';
 import 'model/app_state_model.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized(); 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   return runApp(ChangeNotifierProvider<AppStateModel>(
     builder: (context) => AppStateModel()..loadData(),
