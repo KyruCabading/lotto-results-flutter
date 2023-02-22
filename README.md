@@ -1,5 +1,5 @@
 # PCSO Lotto Results: Updated Daily
-
+Recently made this public since I don't maintain the app anymore on the Google Playstore. 
 ![pcso](https://user-images.githubusercontent.com/31245853/220572464-d3d6d205-a8d8-4dce-87df-fece16466028.jpeg)
 ![pcso-2](https://user-images.githubusercontent.com/31245853/220572475-80158d6e-1f8a-46a1-a6f9-913d1a0fdf33.jpeg)
 ![pcso-3](https://user-images.githubusercontent.com/31245853/220572484-9395bd20-4c0c-4287-8fff-5a174aed2916.jpeg)
